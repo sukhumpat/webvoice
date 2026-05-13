@@ -156,6 +156,9 @@ let isRecording = false;
 let totalScore = 0;
 let practiceCount = 0;
 let currentLanguage = 'th';
+let waveformCanvas = null;
+let waveformCtx = null;
+let animationId = null;
 
 // DOM Elements
 const micStatusEl = document.getElementById('micStatus');
@@ -382,6 +385,15 @@ async function startRecording() {
         recordHint.textContent = stopHintText;
         recordingIndicator.style.display = 'block';
         
+        // Set up waveform visualization
+        waveformCanvas = document.getElementById('waveformCanvas');
+        waveformCtx = waveformCanvas.getContext('2d');
+        // Connect analyser to stream
+        const source = audioContext.createMediaStreamSource(stream);
+        source.connect(analyser);
+        // Start drawing waveform
+        drawWaveform();
+        
     } catch (error) {
         console.error('Recording error:', error);
         const errorMsg = currentLanguage === 'th' ? 'ไม่สามารถบันทึกเสียงได้ กรุณาตรวจสอบการอนุญาตไมโครโฟน' : 'Unable to record. Please check microphone permissions.';
@@ -399,6 +411,12 @@ function stopRecording() {
         const startHintText = currentLanguage === 'th' ? 'กดปุ่มเพื่อเริ่มอัดเสียง' : 'Click to start recording';
         recordHint.textContent = startHintText;
         recordingIndicator.style.display = 'none';
+        
+        // Stop waveform visualization
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+        }
     }
 }
 
@@ -610,4 +628,41 @@ function playReferenceAudio() {
         const alertMsg = currentLanguage === 'th' ? 'เบราว์เซอร์ไม่รองรับการอ่านออกเสียง' : 'Browser does not support speech synthesis';
         alert(alertMsg);
     }
+}
+
+// Draw realtime waveform
+function drawWaveform() {
+    if (!analyser || !waveformCtx) return;
+    
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    
+    analyser.getByteTimeDomainData(dataArray);
+    
+    waveformCtx.fillStyle = '#f8f9fa';
+    waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+    
+    waveformCtx.lineWidth = 2;
+    waveformCtx.strokeStyle = '#007bff';
+    waveformCtx.beginPath();
+    
+    const sliceWidth = waveformCanvas.width / bufferLength;
+    let x = 0;
+    
+    for (let i = 0; i < bufferLength; i++) {
+        const v = dataArray[i] / 128.0;
+        const y = v * waveformCanvas.height / 2;
+        
+        if (i === 0) {
+            waveformCtx.moveTo(x, y);
+        } else {
+            waveformCtx.lineTo(x, y);
+        }
+        
+        x += sliceWidth;
+    }
+    
+    waveformCtx.stroke();
+    
+    animationId = requestAnimationFrame(drawWaveform);
 }
