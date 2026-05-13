@@ -85,6 +85,7 @@ body {
     min-height: 100vh;
     background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #f5f3ff 100%);
     overflow: hidden;
+    padding-top: 5rem; /* Account for fixed header */
 }
 
 .hero-overlay {
@@ -98,6 +99,8 @@ body {
 
 .hero-content {
     animation: fadeInUp 1s ease-out;
+    padding: 2rem 0;
+}
 }
 
 @keyframes fadeInUp {
