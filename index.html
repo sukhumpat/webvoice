@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebVoice - เรียนรู้การออกเสียง</title>
+    <title data-i18n="indexTitle">WebVoice - เรียนรู้การออกเสียง</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/i18n.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -22,16 +23,22 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.html">หน้าหลัก</a>
+                            <a class="nav-link active" href="index.html" data-i18n="home">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">เกี่ยวกับ</a>
+                            <a class="nav-link" href="about.html" data-i18n="about">เกี่ยวกับ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="app.html">แอพฝึกออกเสียง</a>
+                            <a class="nav-link" href="app.html" data-i18n="app">แอพฝึกออกเสียง</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">ติดต่อเรา</a>
+                            <a class="nav-link" href="contact.html" data-i18n="contact">ติดต่อเรา</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="btn-group ms-2" role="group">
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-start" id="langTh" onclick="i18n.setLanguage('th')">ไทย</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-end" id="langEn" onclick="i18n.setLanguage('en')">English</button>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -41,36 +48,36 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="container position-relative">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-6">
-                    <div class="hero-content">
-                        <span class="badge bg-primary-subtle text-primary mb-3 px-4 py-2 rounded-pill">
-                            <i class="bi bi-star-fill me-1"></i> สำหรับทุกคน
+        <div class="hero-overlay"></div><span data-i18n="badgeForEveryone"> สำหรับทุกคน</span>
                         </span>
                         <h1 class="display-3 fw-bold mb-4">
-                            <span class="text-primary">เรียนรู้</span> การออกเสียง
-                            <span class="text-gradient">อย่างมั่นใจ</span>
+                            <span class="text-primary" data-i18n="heroHeading1">เรียนรู้</span> <span data-i18n="heroHeading2">การออกเสียง</span>
+                            <span class="text-gradient" data-i18n="heroHeading3">อย่างมั่นใจ</span>
                         </h1>
-                        <p class="lead text-muted mb-4">
+                        <p class="lead text-muted mb-4" data-i18n="heroDesc">
                             เว็บไซต์เรียนรู้การออกเสียงสำหรับผู้ปกครองและผู้พิการทางการออกเสียง 
                             ฝึกออกเสียงด้วยเทคโนโลยี AI ที่ทันสมัย พร้อมแนวทางและคำแนะนำจากผู้เชี่ยวชาญ
                         </p>
                         <div class="d-flex gap-3 flex-wrap">
                             <a href="app.html" class="btn btn-primary btn-lg px-4 py-3 rounded-pill shadow-lg">
-                                <i class="bi bi-mic me-2"></i>เริ่มฝึกออกเสียง
+                                <i class="bi bi-mic me-2"></i><span data-i18n="startPractice">เริ่มฝึกออกเสียง</span>
                             </a>
                             <a href="about.html" class="btn btn-outline-secondary btn-lg px-4 py-3 rounded-pill">
-                                เรียนรู้เพิ่มเติม<i class="bi bi-arrow-right ms-2"></i>
+                                <span data-i18n="learnMore">เรียนรู้เพิ่มเติม</span><i class="bi bi-arrow-right ms-2"></i>
                             </a>
                         </div>
                         <div class="mt-5 d-flex gap-4">
                             <div class="text-center">
                                 <h3 class="fw-bold text-primary">500+</h3>
-                                <p class="text-muted small mb-0">คำฝึกออกเสียง</p>
+                                <p class="text-muted small mb-0" data-i18n="statWords">คำฝึกออกเสียง</p>
                             </div>
                             <div class="text-center">
+                                <h3 class="fw-bold text-primary">1,000+</h3>
+                                <p class="text-muted small mb-0" data-i18n="statUsers">ผู้ใช้งาน</p>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="fw-bold text-primary">98%</h3>
+                                <p class="text-muted small mb-0" data-i18n="statSatisfaction
                                 <h3 class="fw-bold text-primary">1,000+</h3>
                                 <p class="text-muted small mb-0">ผู้ใช้งาน</p>
                             </div>
